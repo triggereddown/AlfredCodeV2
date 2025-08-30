@@ -94,4 +94,13 @@ const logout = (req, res) => {
   }
 };
 
+// const getOtherUsers = async (req, res) => {
+//   try {
+//     const loggedInUserId = req.id;
+//   } catch (err) {
+//     console.log(err);
+//     return res.status(500).json({ message: "Server Error" });
+//   }
+// };
+
 module.exports = { register, login, logout };

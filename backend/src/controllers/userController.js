@@ -2,105 +2,113 @@ const User = require("../models/userModel.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+// REGISTER
 const register = async (req, res) => {
   try {
-    const { fullName, username, password, confirmPassword, gender } = req.body;
+    const { fullName, username, password, confirmPassword } = req.body;
 
-    if (!fullName || !username || !password || !confirmPassword || !gender) {
-      return res.status(400).json({ message: "All fields are required" });
+    if (!fullName || !username || !password || !confirmPassword) {
+      return res
+        .status(400)
+        .json({ success: false, message: "All fields are required" });
     }
 
     if (password !== confirmPassword) {
       return res
         .status(400)
-        .json({ message: "Password and Confirm Password doesn't match" });
+        .json({ success: false, message: "Passwords do not match" });
     }
 
-    const user = await User.findOne({ username });
-
-    if (user) {
-      return res.status(400).json({ message: "User Already Exists" });
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User Already Exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await User.create({
+    const newUser = await User.create({
       fullName,
       username,
       password: hashedPassword,
-      gender,
     });
 
-    return res.status(201).json({ message: "User Registered Successfully" });
+    // Optional cookie
+    res.cookie("user", username, {
+      httpOnly: true,
+      secure: false, // true if HTTPS
+      sameSite: "Lax",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
+    return res
+      .status(201)
+      .json({
+        success: true,
+        message: "User Registered Successfully",
+        user: newUser,
+      });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ message: "Server Error" });
+    return res.status(500).json({ success: false, message: "Server Error" });
   }
 };
 
+// LOGIN
 const login = async (req, res) => {
   try {
     const { username, password } = req.body;
-    if (!username || !password) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
+    if (!username || !password)
+      return res
+        .status(400)
+        .json({ success: false, message: "All fields required" });
+
     const user = await User.findOne({ username });
-    if (!user) {
+    if (!user)
       return res
         .status(400)
-        .json({ message: "Invalid Credentials", success: false });
-    }
-    const isPasswordMatch = await bcrypt.compare(password, user.password);
-    if (!isPasswordMatch) {
+        .json({ success: false, message: "Invalid Credentials" });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch)
       return res
         .status(400)
-        .json({ message: "Invalid Credentials", success: false });
-    }
-    const tokenData = {
-      userId: user._id,
-    };
-    const token = await jwt.sign(tokenData, process.env.JWT_SECRET_KEY, {
+        .json({ success: false, message: "Invalid Credentials" });
+
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, {
       expiresIn: "1d",
     });
 
     return res
-      .status(200)
-      .cookie("token", {
-        maxAge: 1 * 24 * 60 * 60 * 1000,
-        // to ensure the http security from cyber cookie stealing
+      .cookie("token", token, {
         httpOnly: true,
         sameSite: "strict",
+        maxAge: 24 * 60 * 60 * 1000,
       })
+      .status(200)
       .json({
-        _id: user._id,
-        username: user.username,
-        fullName: user.fullName,
+        success: true,
+        message: "Login Successful",
+        user: { username, fullName: user.fullName, _id: user._id },
       });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ message: "Server Error" });
+    return res.status(500).json({ success: false, message: "Server Error" });
   }
 };
 
-// Not using await since Logout doesn't requires any operation which shall take time
+// LOGOUT
 const logout = (req, res) => {
   try {
-    return res.status(200).cookie("token", "", { maxAge: 0 }).json({
-      message: "User successfully logged out",
-    });
+    return res
+      .cookie("token", "", { maxAge: 0 })
+      .status(200)
+      .json({ success: true, message: "Logged out" });
   } catch (err) {
-    console.log(err);
-    return res.status(500).json({ message: "Server Error" });
+    console.error(err);
+    return res.status(500).json({ success: false, message: "Server Error" });
   }
 };
-
-// const getOtherUsers = async (req, res) => {
-//   try {
-//     const loggedInUserId = req.id;
-//   } catch (err) {
-//     console.log(err);
-//     return res.status(500).json({ message: "Server Error" });
-//   }
-// };
 
 module.exports = { register, login, logout };

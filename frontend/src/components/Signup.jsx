@@ -1,92 +1,71 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Toaster, toast } from "react-hot-toast";
 
 const Signup = () => {
-  // makin an object to get the input
   const [user, setUser] = useState({
     fullName: "",
     username: "",
     password: "",
     confirmPassword: "",
   });
+  const navigate = useNavigate();
 
-  // e because e will take care to change when the input is by user on form
-
-  const onSubmitHandler = (e) => {
-    // To stop reloading the page on input
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log(user);
-    setUser({
-      username: "",
-      fullName: "",
-      password: "",
-      confirmPassword: "",
-    });
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/api/v1/user/register",
+        user,
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true, // important
+        }
+      );
+
+      if (res.data.success) {
+        toast.success(res.data.message);
+        navigate("/login");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error(err.response?.data?.message || "Something went wrong");
+    }
   };
 
   return (
     <div>
+      <Toaster />
       <h2>Sign Up</h2>
-      <form
-        // Calling the onsubmit handler function with usestate on clicking on submit button
-        onSubmit={onSubmitHandler}
-        action=""
-      >
-        <div>
-          <label htmlFor="">
-            <span>Full name</span>
-          </label>
-          <input
-            value={user.fullName}
-            // to get the existing users and also setting the fullname as e.target .vqalue
-            onChange={(e) => setUser({ ...user, fullName: e.target.value })}
-            type="text"
-            placeholder="Enter Full Name"
-          />
-        </div>
-        <div>
-          <label htmlFor="">
-            <span>User name</span>
-          </label>
-          <input
-            value={user.username}
-            onChange={(e) => setUser({ ...user, username: e.target.value })}
-            type="text"
-            placeholder="Enter UserName"
-          />
-        </div>
-        <div>
-          <label htmlFor="">
-            <span>Password</span>
-          </label>
-          <input
-            value={user.password}
-            onChange={(e) => setUser({ ...user, password: e.target.value })}
-            type="password"
-            placeholder="Enter Password"
-          />
-        </div>
-        <div>
-          <label htmlFor="">
-            <span>Confirm Password</span>
-          </label>
-          <input
-            value={user.confirmPassword}
-            onChange={(e) =>
-              setUser({ ...user, confirmPassword: e.target.value })
-            }
-            type="password"
-            placeholder="Enter Password"
-          />
-          <div>
-            <input type="checkbox" />
-          </div>
-          <Link to="/login">Already have an account? Login ?</Link>
-          <div>
-            <button type="submit">Sign Up</button>
-          </div>
-        </div>
+      <form onSubmit={onSubmitHandler}>
+        <input
+          placeholder="Full Name"
+          value={user.fullName}
+          onChange={(e) => setUser({ ...user, fullName: e.target.value })}
+        />
+        <input
+          placeholder="Username"
+          value={user.username}
+          onChange={(e) => setUser({ ...user, username: e.target.value })}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={user.password}
+          onChange={(e) => setUser({ ...user, password: e.target.value })}
+        />
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          value={user.confirmPassword}
+          onChange={(e) =>
+            setUser({ ...user, confirmPassword: e.target.value })
+          }
+        />
+        <button type="submit">Sign Up</button>
       </form>
+      <Link to="/login">Already have an account? Login</Link>
     </div>
   );
 };

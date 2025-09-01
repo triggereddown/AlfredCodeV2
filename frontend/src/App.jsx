@@ -6,11 +6,11 @@ import Login from "../src/components/Login";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/home",
     element: <Home />,
   },
   {
-    path: "/signup",
+    path: "/",
     element: <Signup />,
   },
   {

@@ -26,7 +26,7 @@ const Login = () => {
 
       if (res.data.success) {
         toast.success(res.data.message);
-        navigate("/");
+        navigate("/home");
       }
     } catch (err) {
       console.error(err);

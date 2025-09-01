@@ -50,9 +50,6 @@ const Home = () => {
     <>
       <div className="header">
         <h1>Code Review Tool</h1>
-        <div>
-          <button>Logout</button>
-        </div>
       </div>
       <main>
         <div className="left">

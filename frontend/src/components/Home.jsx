@@ -7,8 +7,11 @@ import axios from "axios";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github-dark.css";
 import Markdown from "react-markdown";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [code, setCode] = useState(`function sum() {
   return 1 + 1;
 }`);
@@ -29,10 +32,27 @@ const Home = () => {
     }
   }
 
+  const LogoutHandler = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/api/v1/user/logout"
+      );
+      if (response.data.success) {
+        toast.success(response.data.message);
+        navigate("/login");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <div className="header">
         <h1>Code Review Tool</h1>
+        <div>
+          <button>Logout</button>
+        </div>
       </div>
       <main>
         <div className="left">
@@ -54,6 +74,11 @@ const Home = () => {
           </div>
           <div className="submitButton" onClick={reviewCode}>
             <button className="btn-btn-primary">Submit</button>
+          </div>
+          <div>
+            <button onClick={LogoutHandler} className="btn-btn-primary">
+              Logout
+            </button>
           </div>
         </div>
         <div className="right">

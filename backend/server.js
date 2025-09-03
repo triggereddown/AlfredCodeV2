@@ -5,6 +5,7 @@ require("dotenv").config();
 const connectdb = require("./src/config/database.js");
 const userRoute = require("./src/routes/userRoutes.js");
 const aiRoutes = require("./src/routes/ai.routes.js");
+const messageRoute = require("./src/routes/messageRoute.js");
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -27,6 +28,7 @@ app.use(cors(corsOptions));
 
 // Routes
 app.use("/api/v1/user", userRoute);
+app.use("/api/v1/message", messageRoute);
 app.use("/ai", aiRoutes);
 
 // Test root route

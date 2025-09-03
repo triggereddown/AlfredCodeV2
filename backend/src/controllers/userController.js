@@ -42,13 +42,11 @@ const register = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    return res
-      .status(201)
-      .json({
-        success: true,
-        message: "User Registered Successfully",
-        user: newUser,
-      });
+    return res.status(201).json({
+      success: true,
+      message: "User Registered Successfully",
+      user: newUser,
+    });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ success: false, message: "Server Error" });
@@ -111,4 +109,17 @@ const logout = (req, res) => {
   }
 };
 
-module.exports = { register, login, logout };
+const getOtherUsers = async (req, res) => {
+  try {
+    const loggedInUserId = req.id; // assuming you set req.id in middleware
+    const otherUsers = await User.find({ _id: { $ne: loggedInUserId } }).select(
+      "-password"
+    );
+
+    return res.status(200).json(otherUsers);
+  } catch (err) {
+    return res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
+module.exports = { register, login, logout, getOtherUsers };

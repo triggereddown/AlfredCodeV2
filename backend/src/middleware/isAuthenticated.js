@@ -2,24 +2,27 @@ const jwt = require("jsonwebtoken");
 
 const isAuthenticated = async (req, res, next) => {
   try {
-    // check the token inside the cookies inside the request
-    const token = req.cookies.token;
-    console.log(token);
+    // Checking if cookies is undefined
+    const token = req.cookies?.token;
+    console.log("Token from cookies:", token);
+
     if (!token) {
       return res.status(401).json({ message: "User not authenticated." });
     }
 
-    const decode = await jwt.verify(token, process.env.JWT_SECRET_KEY);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    console.log("Decoded token:", decoded);
 
-    if (!decode) {
+    if (!decoded || !decoded.userId) {
       return res.status(401).json({ message: "Invalid Token" });
     }
-    // Uptill here we will get the decoded token in form of an object now we will assign the id
-    // which is present in the decode object
-    req.id = decode.userId;
+
+    req.id = decoded.userId; // attach userId to request
     next();
   } catch (err) {
-    console.log(err);
+    console.error("Authentication error:", err);
+    return res.status(401).json({ message: "Token verification failed" });
   }
 };
+
 module.exports = { isAuthenticated };

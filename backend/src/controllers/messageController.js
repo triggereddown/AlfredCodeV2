@@ -46,4 +46,22 @@ const sendMessage = async (req, res) => {
   }
 };
 
-module.exports = { sendMessage };
+const getMessage = async (req, res) => {
+  try {
+    //taking id of receiver from the users hit rout endpoint body
+    const receiverId = req.params.id;
+    const senderId = req.id;
+    const conversation = await Conversation.findOne({
+      participants: { $all: [senderId, receiverId] },
+    }).populate("messages");
+
+    console.log(conversation.messages);
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(500)
+      .json({ success: false, message: "Message controller error" });
+  }
+};
+
+module.exports = { sendMessage, getMessage };

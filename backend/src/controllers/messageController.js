@@ -56,6 +56,10 @@ const getMessage = async (req, res) => {
     }).populate("messages");
 
     console.log(conversation.messages);
+    return res.status(200).json({
+      success: true,
+      messages: conversation ? conversation.messages : [],
+    });
   } catch (err) {
     console.log(err);
     return res

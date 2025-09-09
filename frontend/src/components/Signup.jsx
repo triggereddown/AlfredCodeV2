@@ -21,7 +21,7 @@ const Signup = () => {
         user,
         {
           headers: { "Content-Type": "application/json" },
-          withCredentials: true, // important
+          withCredentials: true,
         }
       );
 
@@ -36,7 +36,7 @@ const Signup = () => {
   };
 
   return (
-    <div>
+    <div className="signupPage">
       <Toaster />
       <h2>Sign Up</h2>
       <form onSubmit={onSubmitHandler}>

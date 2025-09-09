@@ -1,0 +1,99 @@
+.reviewPage {
+  height: 100vh; /* Full viewport height */
+  width: 100%;
+  background-color: #1a1a1a; /* Dark gray background */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  font-family: "Inter", sans-serif;
+  color: #fff;
+  gap: 1rem;
+}
+
+/* Header at top */
+.reviewPage .header {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+/* Container for two boxes */
+.reviewPage main {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Shared box styles */
+.reviewPage .left,
+.reviewPage .right {
+  background-color: #2a2a2a; /* Box color */
+  border-radius: 10px;
+  border: 1px solid #3b3b3b;
+  width: 500px; /* Fixed width */
+  height: 500px; /* Fixed height */
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Code editor area */
+.reviewPage .codeInput {
+  flex: 1;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  padding: 0.5rem;
+  overflow-y: auto;
+  font-family: "Fira Code", monospace;
+  font-size: 14px;
+  color: #fff;
+}
+
+/* Button styles */
+.reviewPage .btn-btn-primary {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 14px;
+  margin-top: 0.5rem;
+  align-self: flex-end;
+}
+
+.reviewPage .btn-btn-primary:hover {
+  background-color: #2563eb;
+}
+
+/* Scrollable right content */
+.reviewPage .right {
+  overflow-y: auto;
+}
+
+.reviewPage .right p,
+.reviewPage .right h1,
+.reviewPage .right h2,
+.reviewPage .right h3,
+.reviewPage .right h4,
+.reviewPage .right h5,
+.reviewPage .right h6,
+.reviewPage .right li {
+  color: #f8f8f2;
+  line-height: 1.5;
+}
+
+.reviewPage .right a {
+  color: #61dafb;
+  text-decoration: none;
+}
+
+.reviewPage .right a:hover {
+  text-decoration: underline;
+}

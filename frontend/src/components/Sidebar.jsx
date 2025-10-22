@@ -1,7 +1,7 @@
 import React from "react";
 import "./Sidebar.css";
 import { FaSearch } from "react-icons/fa";
-import OtherUsers from "./OtherUsers";
+import OtherUser from "./OtherUser";
 
 const Sidebar = () => {
   return (
@@ -17,10 +17,10 @@ const Sidebar = () => {
       <div className="divider"></div>
 
       <div className="userList">
-        <OtherUsers name="Test123" online={true} />
-        <OtherUsers name="Alex Smith" online={false} />
-        <OtherUsers name="John Doe" online={true} />
-        <OtherUsers name="Jane D009oe" online={false} />
+        <OtherUser name="Test123" online={true} />
+        <OtherUser name="Alex Smith" online={false} />
+        <OtherUser name="John Doe" online={true} />
+        <OtherUser name="Jane D009oe" online={false} />
       </div>
     </div>
   );

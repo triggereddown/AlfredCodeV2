@@ -1,0 +1,88 @@
+/* Login Page Styles */
+.loginPage {
+  background: #121212;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: "Inter", sans-serif;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.loginPage h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.loginPage form {
+  background: #1e1e1e;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 320px;
+  margin: 0 auto;
+}
+
+.loginPage .inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginPage label {
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.loginPage input {
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #2a2a2a;
+  color: #fff;
+  outline: none;
+  transition: background 0.3s ease;
+}
+
+.loginPage input:focus {
+  background: #333333;
+  box-shadow: 0 0 0 2px #3b82f6;
+}
+
+.loginPage button {
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  background: #3b82f6;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.loginPage button:hover {
+  background: #2563eb;
+}
+
+.loginPage a {
+  display: inline-block;
+  margin-top: 0.8rem;
+  font-size: 0.9rem;
+  color: #3b82f6;
+  text-decoration: none;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.loginPage a:hover {
+  color: #60a5fa;
+}

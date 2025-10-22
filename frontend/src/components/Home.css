@@ -1,3 +1,24 @@
 .home {
-  color: burlywood;
+  display: flex; /* side-by-side layout */
+  height: 100vh; /* full viewport height */
+  width: 100vw; /* full viewport width */
+  background-color: #121212; /* dark background for the app */
+  color: white;
+  overflow: hidden; /* prevent scrollbars from showing */
+}
+
+/* Sidebar takes fixed width */
+.home .sidebar {
+  width: 280px; /* fixed width for sidebar */
+  flex-shrink: 0; /* prevent shrinking */
+  border-right: 1px solid #2c2c2c;
+  background-color: #1e1e1e;
+}
+
+/* Message container takes remaining space */
+.home .message-container {
+  flex: 1; /* take up all remaining space */
+  background-color: #181818; /* slightly different shade */
+  display: flex;
+  flex-direction: column;
 }

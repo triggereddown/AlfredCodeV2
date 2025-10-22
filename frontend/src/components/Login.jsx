@@ -1,84 +1,77 @@
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setAuthUser } from "../redux/userSlice.js";
+import "./login.css";
 
 const Login = () => {
   const [user, setUser] = useState({
     username: "",
     password: "",
   });
+
   const navigate = useNavigate();
-  // e because e will take care to change when the input is by user on form
+  const dispatch = useDispatch();
 
   const onSubmitHandler = async (e) => {
-    // To stop reloading the page on input
     e.preventDefault();
+
     try {
       const res = await axios.post(
         "http://localhost:3000/api/v1/user/login",
         user,
         {
           headers: { "Content-Type": "application/json" },
-          withCredentials: true, // important
+          withCredentials: true,
         }
       );
 
       if (res.data.success) {
         toast.success(res.data.message);
-        navigate("/home");
-        console.log(res.data);
         dispatch(setAuthUser(res.data));
+        navigate("/home");
       }
     } catch (err) {
       console.error(err);
       toast.error(err.response?.data?.message || "Something went wrong");
     }
 
-    console.log(user);
-    setUser({
-      username: "",
-
-      password: "",
-    });
+    // Reset fields
+    setUser({ username: "", password: "" });
   };
 
   return (
-    <div>
+    <div className="loginPage">
+      <Toaster position="top-center" reverseOrder={false} />
       <h2>Login</h2>
-      <form onSubmit={onSubmitHandler} action="">
-        <div>
-          <label htmlFor="">
-            <span>User name</span>
-          </label>
+      <form onSubmit={onSubmitHandler}>
+        <div className="inputGroup">
+          <label>User name</label>
           <input
             value={user.username}
             onChange={(e) => setUser({ ...user, username: e.target.value })}
             type="text"
-            placeholder="Enter UserName"
+            placeholder="Enter Username"
+            required
           />
         </div>
-        <div>
-          <label htmlFor="">
-            <span>Password</span>
-          </label>
+
+        <div className="inputGroup">
+          <label>Password</label>
           <input
             value={user.password}
-            // ... is spread operator to get the existing value
-            // the onbject of setuser is destructured as any props to access the inside elements
             onChange={(e) => setUser({ ...user, password: e.target.value })}
             type="password"
             placeholder="Enter Password"
+            required
           />
         </div>
-        <div>
-          <Link to="/">Don't have an account? Sign Up</Link>
-          <div>
-            <button>Login</button>
-          </div>
-        </div>
+
+        <button type="submit">Login</button>
+
+        <Link to="/">Don't have an account? Sign Up</Link>
       </form>
     </div>
   );

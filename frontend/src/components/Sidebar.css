@@ -1,7 +1,8 @@
 /* Sidebar Container */
 .sidebar {
+  margin-top: 24px;
   width: 280px; /* fixed width for sidebar */
-  height: 100vh; /* full height */
+  height: 80vh; /* full height */
   background-color: #1e1e1e; /* dark gray background */
   display: flex;
   flex-direction: column;

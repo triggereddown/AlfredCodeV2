@@ -1,0 +1,120 @@
+.messageContainer {
+  display: flex;
+  flex-direction: column;
+  height: 80vh; /* bigger height, 80% of viewport */
+  width: 600px; /* wider container */
+  max-width: 90vw; /* responsive for smaller screens */
+  background: #121212;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+  margin: 20px auto; /* center on page */
+}
+
+/* Header (top user info) */
+.userRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  background: #1e1e1e;
+  border-bottom: 1px solid #333;
+}
+
+.avatar {
+  position: relative;
+}
+
+.avatar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.statusDot {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  background: #22c55e;
+  border-radius: 50%;
+  border: 2px solid #1e1e1e;
+}
+
+.userInfo .userName {
+  font-weight: 600;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+/* Messages area */
+.messageContainer > div:nth-child(2) {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #121212;
+}
+
+/* Optional scroll bar styling */
+.messageContainer > div:nth-child(2)::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messageContainer > div:nth-child(2)::-webkit-scrollbar-thumb {
+  background-color: #333;
+  border-radius: 3px;
+}
+
+.messageContainer > div:nth-child(2)::-webkit-scrollbar-track {
+  background-color: #121212;
+}
+
+/* Input stays at bottom */
+.messageContainer > div:last-child {
+  padding: 10px 15px;
+  background: #1e1e1e;
+  border-top: 1px solid #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .messageContainer {
+    width: 90vw;
+    height: 75vh;
+  }
+
+  .avatar img {
+    width: 45px;
+    height: 45px;
+  }
+
+  .userInfo .userName {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .messageContainer {
+    width: 100%;
+    height: 70vh;
+    border-radius: 0;
+  }
+
+  .avatar img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .userInfo .userName {
+    font-size: 0.95rem;
+  }
+
+  .messageContainer > div:last-child {
+    padding: 8px 10px;
+  }
+}

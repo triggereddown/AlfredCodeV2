@@ -16,6 +16,7 @@
   font-size: 2rem;
   margin-bottom: 1rem;
   color: #ffffff;
+  text-align: center;
 }
 
 .signupPage form {
@@ -27,7 +28,15 @@
   flex-direction: column;
   gap: 1rem;
   width: 320px;
+  max-width: 90%;
   margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+.signupPage label {
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 500;
 }
 
 .signupPage input {
@@ -55,11 +64,12 @@
   background: #3b82f6;
   color: #fff;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .signupPage button:hover {
   background: #2563eb;
+  transform: scale(1.02);
 }
 
 .signupPage a {
@@ -68,9 +78,59 @@
   font-size: 0.9rem;
   color: #3b82f6;
   text-decoration: none;
+  text-align: center;
   transition: color 0.3s ease;
 }
 
 .signupPage a:hover {
   color: #60a5fa;
+}
+
+/* 🌐 RESPONSIVE DESIGN */
+@media (max-width: 600px) {
+  .signupPage {
+    height: auto;
+    padding: 2rem 1rem;
+  }
+
+  .signupPage h2 {
+    font-size: 1.7rem;
+    margin-bottom: 1rem;
+  }
+
+  .signupPage form {
+    width: 100%;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .signupPage input {
+    font-size: 0.95rem;
+    padding: 0.7rem 0.9rem;
+  }
+
+  .signupPage button {
+    font-size: 0.95rem;
+    padding: 0.7rem;
+  }
+
+  .signupPage a {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .signupPage h2 {
+    font-size: 1.5rem;
+  }
+
+  .signupPage form {
+    padding: 1.2rem;
+  }
+
+  .signupPage input,
+  .signupPage button {
+    font-size: 0.9rem;
+  }
 }

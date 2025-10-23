@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 const OtherUsers = () => {
   useGetOtherUsers();
   const { otherUsers } = useSelector((store) => store.user);
+  if (!otherUsers) return; //early return in react which means that if other users doesn;t exist then nothing to return
+
   return (
     <div className="other-users">
       {otherUsers &&

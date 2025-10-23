@@ -3,8 +3,18 @@ import "./Sidebar.css";
 import { FaSearch } from "react-icons/fa";
 import OtherUser from "./OtherUser";
 import OtherUsers from "./OtherUsers";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Sidebar = () => {
+  const logoutHandler = async () => {
+    try {
+      const res = await axios.get(`http://localhost:3000/api/v1/user/logout`);
+      toast.success("Logged out successfully");
+    } catch (error) {
+      toast.error("Error logging out");
+    }
+  };
   return (
     <div className="sidebar">
       {/* Search Bar */}
@@ -25,7 +35,9 @@ const Sidebar = () => {
         <OtherUser name="Jane D009oe" online={false} /> */}
       </div>
       <div>
-        <button className="logout">Logout</button>
+        <button onClick={logoutHandler} className="logout">
+          Logout
+        </button>
       </div>
     </div>
   );

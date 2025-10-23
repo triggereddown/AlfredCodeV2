@@ -1,21 +1,20 @@
 import React from "react";
 import "./OtherUser.css";
 
-const OtherUser = ({ image, name, online }) => {
+const OtherUser = (props) => {
+  const user = props.user;
+
   return (
     <div className="userRow">
       {/* Profile Image */}
       <div className="avatar">
-        <img
-          src={image || "https://via.placeholder.com/40"}
-          alt={name || "User"}
-        />
-        {online && <span className="statusDot"></span>}
+        <img src={user?.profilePhoto} alt={user?.fullName || "User"} />
+        {user?.online && <span className="statusDot"></span>}
       </div>
 
       {/* User Name */}
       <div className="userInfo">
-        <p className="userName">{name || "Username"}</p>
+        <p className="userName">{user?.fullName || "Username"}</p>
       </div>
     </div>
   );

@@ -1,14 +1,29 @@
 import React from "react";
 import "./OtherUser.css";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedUser } from "../redux/userSlice";
 
-const OtherUser = (props) => {
-  const user = props.user;
+const OtherUser = ({ user }) => {
+  const dispatch = useDispatch();
+  const { selectedUser } = useSelector((store) => store.user);
+
+  const selectedUserHandler = () => {
+    dispatch(setSelectedUser(user));
+  };
 
   return (
-    <div className="userRow">
+    <div
+      onClick={selectedUserHandler}
+      className={`userRow ${
+        selectedUser?._id === user?._id ? "selectedUser" : ""
+      }`}
+    >
       {/* Profile Image */}
       <div className="avatar">
-        <img src={user?.profilePhoto} alt={user?.fullName || "User"} />
+        <img
+          src={user?.profilePhoto || "https://via.placeholder.com/40"}
+          alt={user?.fullName || "User"}
+        />
         {user?.online && <span className="statusDot"></span>}
       </div>
 

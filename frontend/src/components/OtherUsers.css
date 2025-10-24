@@ -1,54 +1,25 @@
-.userRow {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.userRow:hover {
-  background: #2a2a2a; /* Slight hover effect */
-}
-
-/* Avatar container */
-.avatar {
-  position: relative;
-  width: 45px;
-  height: 45px;
-  flex-shrink: 0;
-}
-
-.avatar img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #3b3b3b;
-}
-
-/* Online status dot */
-.statusDot {
-  position: absolute;
-  bottom: 3px;
-  right: 3px;
-  width: 12px;
-  height: 12px;
-  background: #4ade80; /* Green dot */
-  border: 2px solid #1a1a1a; /* Border to separate from avatar */
-  border-radius: 50%;
-}
-
-/* User name styling */
-.userInfo {
+.other-users {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  gap: 6px;
+  padding: 10px;
+  overflow-y: auto;
+  height: calc(100vh - 120px); /* Adjust based on your layout */
+  background: transparent; /* ✅ Important — allows child background colors to show */
+  scrollbar-width: thin;
+  scrollbar-color: #3a3a3a #1a1a1a;
 }
 
-.userName {
-  font-size: 1rem;
-  font-weight: 500;
-  color: #fff;
+/* Optional: better scrollbar for Chrome */
+.other-users::-webkit-scrollbar {
+  width: 6px;
+}
+
+.other-users::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+  border-radius: 3px;
+}
+
+.other-users::-webkit-scrollbar-track {
+  background: #1a1a1a;
 }

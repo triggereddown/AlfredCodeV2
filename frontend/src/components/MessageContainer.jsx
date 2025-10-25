@@ -2,22 +2,24 @@ import React from "react";
 import "./MessageContainer.css";
 import SendInput from "./SendInput";
 import Messages from "./Messages";
+import { useSelector } from "react-redux";
 
 const MessageContainer = ({ image, name, online }) => {
+  const { selectedUser } = useSelector((store) => store.user);
   return (
     <div className="messageContainer">
       {/* Header */}
       <div className="userRow">
         <div className="avatar">
           <img
-            src={image || "https://via.placeholder.com/40"}
+            src={selectedUser?.profilePicture || image}
             alt={name || "User"}
           />
           {online && <span className="statusDot"></span>}
         </div>
 
         <div className="userInfo">
-          <p className="userName">{name || "Username"}</p>
+          <p className="userName">{selectedUser?.fullName}</p>
         </div>
       </div>
 

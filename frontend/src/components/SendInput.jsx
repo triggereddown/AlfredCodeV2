@@ -3,6 +3,7 @@ import { IoSend } from "react-icons/io5";
 import "./SendInput.css";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { setMessages } from "../redux/messageSlice";
 
 const SendInput = () => {
   const [message, setMessage] = useState("");
@@ -20,8 +21,14 @@ const SendInput = () => {
           withCredentials: true,
         }
       );
-      console.log(res);
-      dispatch(setMessages([...messages, res.data.newMessage]));
+      console.log("Send response:", res.data);
+      // After sending, refetch messages for this conversation to keep UI in sync
+      const fetchRes = await axios.get(
+        `http://localhost:3000/api/v1/message/${selectedUser._id}`,
+        { withCredentials: true }
+      );
+      console.log("Refetched messages:", fetchRes.data.messages);
+      dispatch(setMessages(fetchRes.data.messages));
     } catch (err) {
       console.error("Error sending message:", err);
     }

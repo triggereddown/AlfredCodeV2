@@ -1,27 +1,37 @@
-import React from "react";
+import { useEffect } from "react";
 import axios from "axios";
-import { useInsertionEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setMessages } from "../redux/messageSlice";
 
 const useGetMessages = () => {
   const { selectedUser } = useSelector((store) => store.user);
-  useInsertionEffect(() => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
     const fetchMessages = async () => {
       try {
-        //now to check every time if the user is logged in or not
+        if (!selectedUser?._id) return;
         axios.defaults.withCredentials = true;
 
         const res = await axios.get(
-          `http://localhost:3000/api/v1/message/${selectedUser?._id}`
+          `http://localhost:3000/api/v1/message/${selectedUser._id}`
         );
-        console.log(res);
+
+        // Backend returns { success: true, messages: [...] }
+        // We only need the messages array for logging and state
+        console.log(
+          "Fetched Messages for user",
+          selectedUser._id,
+          res.data.messages
+        );
+        dispatch(setMessages(res.data.messages));
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching messages:", error);
       }
     };
-    //calling the funtion just created
+
     fetchMessages();
-  }, []);
+  }, [selectedUser]);
 };
 
 export default useGetMessages;

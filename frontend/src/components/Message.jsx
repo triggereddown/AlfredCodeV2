@@ -4,7 +4,7 @@ import "./Message.css";
 const Message = ({ message, sender = false }) => {
   return (
     <div className={`messageRow ${sender ? "sender" : "receiver"}`}>
-      <div className="chatBubble">{message.text}</div>
+      <div className="chatBubble">{message?.message}</div>
     </div>
   );
 };

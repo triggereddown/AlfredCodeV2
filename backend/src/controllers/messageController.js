@@ -35,8 +35,7 @@ const sendMessage = async (req, res) => {
 
     await gotConversation.save();
     return res.status(200).json({
-      success: true,
-      message: "Message Sent",
+      newMessage,
     });
   } catch (err) {
     console.log(err);

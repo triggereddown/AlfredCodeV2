@@ -8,7 +8,7 @@ const SendInput = () => {
   const [message, setMessage] = useState("");
   const dispatch = useDispatch();
   const { selectedUser } = useSelector((store) => store.user);
-
+  const { messages } = useSelector((store) => store.message);
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -21,9 +21,11 @@ const SendInput = () => {
         }
       );
       console.log(res);
+      dispatch(setMessages([...messages, res.data.newMessage]));
     } catch (err) {
       console.error("Error sending message:", err);
     }
+    setMessage(""); // clear input after sending
     //To check the message
     // alert(message);
     // Dispatch the sendMessage action with the message

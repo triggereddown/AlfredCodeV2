@@ -6,6 +6,13 @@ import { useSelector } from "react-redux";
 
 const MessageContainer = ({ image, name, online }) => {
   const { selectedUser } = useSelector((store) => store.user);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(setSelectedUser(null));
+  //   };
+  // }, [selectedUser]);
+
   return (
     <div className="messageContainer">
       {/* Header */}

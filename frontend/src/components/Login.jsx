@@ -30,7 +30,8 @@ const Login = () => {
 
       if (res.data.success) {
         toast.success(res.data.message);
-        dispatch(setAuthUser(res.data));
+        // store just the user object (not the whole response wrapper)
+        dispatch(setAuthUser(res.data.user));
         navigate("/home");
       }
     } catch (err) {

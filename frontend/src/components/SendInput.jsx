@@ -13,13 +13,19 @@ const SendInput = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/v1/message/send/${selectedUser._id}`
+        `http://localhost:3000/api/v1/message/send/${selectedUser._id}`,
+        { message },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
       );
       console.log(res);
     } catch (err) {
       console.error("Error sending message:", err);
     }
-    alert(message);
+    //To check the message
+    // alert(message);
     // Dispatch the sendMessage action with the message
   };
 

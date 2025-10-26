@@ -36,37 +36,67 @@ const Signup = () => {
   };
 
   return (
-    <div className="signupPage">
+    <div className="signupWrapper">
       <Toaster />
-      <h2>Sign Up</h2>
-      <form onSubmit={onSubmitHandler}>
-        <input
-          placeholder="Full Name"
-          value={user.fullName}
-          onChange={(e) => setUser({ ...user, fullName: e.target.value })}
-        />
-        <input
-          placeholder="Username"
-          value={user.username}
-          onChange={(e) => setUser({ ...user, username: e.target.value })}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={user.password}
-          onChange={(e) => setUser({ ...user, password: e.target.value })}
-        />
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          value={user.confirmPassword}
-          onChange={(e) =>
-            setUser({ ...user, confirmPassword: e.target.value })
-          }
-        />
-        <button type="submit">Sign Up</button>
-      </form>
-      <Link to="/login">Already have an account? Login</Link>
+      {/* Title */}
+      <h1 className="appTitle">Alfred Chat & Code Review</h1>
+
+      <div className="signupContainer">
+        {/* Left About Section */}
+        <div className="aboutSection">
+          <h2>About</h2>
+          <p>
+            Alfred Chat & Code Review is your intelligent developer companion.
+            Collaborate with teammates, share code, and get instant AI-powered
+            feedback — all in one place.
+          </p>
+        </div>
+
+        {/* Center Signup Form */}
+        <div className="signupPage">
+          <h2>Create Account</h2>
+          <form onSubmit={onSubmitHandler}>
+            <input
+              placeholder="Full Name"
+              value={user.fullName}
+              onChange={(e) => setUser({ ...user, fullName: e.target.value })}
+            />
+            <input
+              placeholder="Username"
+              value={user.username}
+              onChange={(e) => setUser({ ...user, username: e.target.value })}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={user.password}
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
+            />
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              value={user.confirmPassword}
+              onChange={(e) =>
+                setUser({ ...user, confirmPassword: e.target.value })
+              }
+            />
+            <button type="submit">Sign Up</button>
+          </form>
+          <Link to="/login">Already have an account? Login</Link>
+        </div>
+
+        {/* Right Features Section */}
+        <div className="featuresSection">
+          <h2>Features</h2>
+          <ul>
+            <li>💬 Real-time messaging</li>
+            <li>🧠 AI Code suggestions</li>
+            <li>📂 Project-based organization</li>
+            <li>⚡ Fast, secure authentication</li>
+            <li>🎨 Clean modern UI</li>
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };

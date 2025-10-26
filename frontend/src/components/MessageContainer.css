@@ -1,8 +1,8 @@
 .messageContainer {
   display: flex;
   flex-direction: column;
-  height: 80vh; /* bigger height, 80% of viewport */
-  width: 600px; /* wider container */
+  height: 90vh; /* bigger height, 80% of viewport */
+  width: 1000px; /* wider container */
   max-width: 90vw; /* responsive for smaller screens */
   background: #121212;
   border-radius: 6px;

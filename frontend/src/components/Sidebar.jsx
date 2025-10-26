@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Sidebar.css";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
 import OtherUsers from "./OtherUsers";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -12,9 +12,9 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
-  const { authUser, otherUsers } = useSelector((store) => store.user);
+  const [isOpen, setIsOpen] = useState(false);
+  const { otherUsers } = useSelector((store) => store.user);
 
-  // Logout function remains unchanged
   const logoutHandler = async () => {
     try {
       const res = await axios.get(`http://localhost:3000/api/v1/user/logout`);
@@ -25,10 +25,8 @@ const Sidebar = () => {
     }
   };
 
-  // Real-time search filtering
   useEffect(() => {
     if (!search) {
-      // If search is empty, reset the list to all users
       dispatch(setOtherUsers(otherUsers));
       return;
     }
@@ -37,46 +35,47 @@ const Sidebar = () => {
       user.username.toLowerCase().includes(search.toLowerCase())
     );
 
-    if (filteredUsers && filteredUsers.length > 0) {
-      dispatch(setOtherUsers(filteredUsers));
-    } else {
-      dispatch(setOtherUsers([]));
-    }
+    dispatch(setOtherUsers(filteredUsers?.length ? filteredUsers : []));
   }, [search]);
 
-  // Optional: form submit can just prevent default
-  const searchSubmitHandler = (e) => {
-    e.preventDefault();
-  };
+  const searchSubmitHandler = (e) => e.preventDefault();
 
   return (
-    <div className="sidebar">
-      {/* Search Bar */}
-      <form onSubmit={searchSubmitHandler} action="">
-        <input
-          type="text"
-          placeholder="Search"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button type="submit">
-          <FaSearch />
-        </button>
-      </form>
+    <>
+      {/* Overlay for mobile */}
+      {isOpen && <div className="overlay" onClick={() => setIsOpen(false)} />}
 
-      <div className="divider"></div>
+      {/* Hamburger Icon */}
+      <button className="hamburger" onClick={() => setIsOpen(!isOpen)}>
+        {isOpen ? <FaTimes /> : <FaBars />}
+      </button>
 
-      <div className="userList">
-        {/* Render OtherUsers component */}
-        <OtherUsers />
-      </div>
+      {/* Sidebar */}
+      <div className={`sidebar ${isOpen ? "open" : ""}`}>
+        {/* Search Bar */}
+        <form onSubmit={searchSubmitHandler} className="search-bar">
+          <FaSearch className="search-icon" />
+          <input
+            type="text"
+            placeholder="Search users..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </form>
 
-      <div>
+        <div className="divider"></div>
+
+        {/* User List */}
+        <div className="userList">
+          <OtherUsers />
+        </div>
+
+        {/* Logout */}
         <button onClick={logoutHandler} className="logout">
           Logout
         </button>
       </div>
-    </div>
+    </>
   );
 };
 

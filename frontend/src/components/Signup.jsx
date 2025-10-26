@@ -48,7 +48,8 @@ const Signup = () => {
           <p>
             Alfred Chat & Code Review is your intelligent developer companion.
             Collaborate with teammates, share code, and get instant AI-powered
-            feedback — all in one place.
+            feedback — all in one place. *(Sharing feature is still
+            under-development)*
           </p>
         </div>
 
@@ -91,7 +92,8 @@ const Signup = () => {
           <ul>
             <li>💬 Real-time messaging</li>
             <li>🧠 AI Code suggestions</li>
-            <li>📂 Project-based organization</li>
+            <li>🧠 AI Syntax Improvement</li>
+            <li>🧠 AI Tutor for code context</li>
             <li>⚡ Fast, secure authentication</li>
             <li>🎨 Clean modern UI</li>
           </ul>

@@ -68,9 +68,19 @@ const MessageContainer = ({ image, online }) => {
       </div>
 
       {/* Messages */}
-      {!selectedUser ? (
+      {/* {!selectedUser ? (
         <div className="welcomeMessage">
           <p>Hi {authUser?.username || "User"}, let's start chatting! 👋</p>
+        </div>
+      ) : (
+        <Messages />
+      )} */}
+      {!selectedUser ? (
+        <div className="welcomeMessage">
+          <p>
+            Hi <span>{authUser?.username || "User"}</span>, let’s start
+            chatting! 👋
+          </p>
         </div>
       ) : (
         <Messages />

@@ -32,7 +32,7 @@ const Review = () => {
     }
   }
 
-  const LogoutHandler = async () => {
+  const logoutHandler = async () => {
     try {
       const response = await axios.get(
         "http://localhost:3000/api/v1/user/logout"
@@ -44,6 +44,10 @@ const Review = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const goHomeHandler = () => {
+    navigate("/home"); // navigate back to home
   };
 
   return (
@@ -71,15 +75,22 @@ const Review = () => {
               }}
             />
           </div>
-          <div className="submitButton" onClick={reviewCode}>
-            <button className="btn-btn-primary">Submit</button>
-          </div>
-          <div>
-            <button onClick={LogoutHandler} className="btn-btn-primary">
+
+          <div className="buttonGroup">
+            <button className="btn-btn-primary" onClick={reviewCode}>
+              Submit
+            </button>
+
+            <button className="btn-secondary" onClick={goHomeHandler}>
+              Back to Home
+            </button>
+
+            <button className="btn-btn-primary" onClick={logoutHandler}>
               Logout
             </button>
           </div>
         </div>
+
         <div className="right">
           <Markdown rehypePlugins={[rehypeHighlight]}>{review}</Markdown>
         </div>

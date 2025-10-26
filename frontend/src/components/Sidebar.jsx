@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Sidebar.css";
-import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
+import { FaSearch, FaBars, FaTimes, FaCode } from "react-icons/fa";
 import OtherUsers from "./OtherUsers";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -23,6 +23,10 @@ const Sidebar = () => {
     } catch (error) {
       toast.error(error.response?.data?.message);
     }
+  };
+
+  const handleCodeReviewClick = () => {
+    navigate("/review");
   };
 
   useEffect(() => {
@@ -69,6 +73,12 @@ const Sidebar = () => {
         <div className="userList">
           <OtherUsers />
         </div>
+
+        {/* Code Review Button */}
+        <button className="codeReviewBtn" onClick={handleCodeReviewClick}>
+          <FaCode className="code-icon" />
+          Code Review
+        </button>
 
         {/* Logout */}
         <button onClick={logoutHandler} className="logout">

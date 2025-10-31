@@ -47,6 +47,10 @@ const io = new Server(server, {
   },
 });
 
+const getReceiverSocketId = (userId) => {
+  return userSocketMap[userId];
+};
+
 const userSocketMap = {}; // userId -> socketId
 
 io.on("connection", (socket) => {
@@ -74,4 +78,4 @@ io.on("connection", (socket) => {
   });
 });
 
-module.exports = { server, io, app };
+module.exports = { server, io, app, getReceiverSocketId };

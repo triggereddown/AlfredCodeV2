@@ -3,7 +3,7 @@ import "./Sidebar.css";
 import { FaSearch, FaBars, FaTimes, FaCode } from "react-icons/fa";
 import OtherUsers from "./OtherUsers";
 import axios from "axios";
-import toast from "react-hot-toast";
+import toast from "react-hot-toast"; // ✅ Global toaster
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setOtherUsers } from "../redux/userSlice";
@@ -15,13 +15,14 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { otherUsers } = useSelector((store) => store.user);
 
+  // Logout using global toaster
   const logoutHandler = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/v1/user/logout`);
+      const res = await axios.get("http://localhost:3000/api/v1/user/logout");
+      toast.success(res.data.message); // ✅ Uses global toaster
       navigate("/login");
-      toast.success(res.data.message);
     } catch (error) {
-      toast.error(error.response?.data?.message);
+      toast.error(error.response?.data?.message || "Logout failed"); // ✅ Uses global toaster
     }
   };
 

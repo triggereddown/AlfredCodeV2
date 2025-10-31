@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast"; // ✅ No Toaster here
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -29,14 +29,13 @@ const Login = () => {
       );
 
       if (res.data.success) {
-        toast.success(res.data.message);
-        // store just the user object (not the whole response wrapper)
+        toast.success(res.data.message); // ✅ Will use global Toaster
         dispatch(setAuthUser(res.data.user));
         navigate("/home");
       }
     } catch (err) {
       console.error(err);
-      toast.error(err.response?.data?.message || "Something went wrong");
+      toast.error(err.response?.data?.message || "Something went wrong"); // ✅ Global Toaster
     }
 
     // Reset fields
@@ -45,7 +44,6 @@ const Login = () => {
 
   return (
     <div className="loginPage">
-      <Toaster position="top-center" reverseOrder={false} />
       <h2>Login</h2>
       <form onSubmit={onSubmitHandler}>
         <div className="inputGroup">

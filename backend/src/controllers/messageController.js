@@ -34,8 +34,9 @@ const sendMessage = async (req, res) => {
       gotConversation.messages.push(newMessage._id);
     }
 
-    await gotConversation.save();
-
+    // await gotConversation.save();
+    // await newMessage.save();
+    await Promise.all([gotConversation.save(), newMessage.save()]);
     const receiverSocketId = getReceiverSocketId(receiverId);
     const io = getIo();
     if (receiverSocketId && io) {

@@ -17,8 +17,8 @@ const Signup = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        // "https://alfredchatv2backend.onrender.com/api/v1/user/register",
-        "http://localhost:3000/api/v1/user/register",
+        "https://chatappbackend-6btt.onrender.com/api/v1/user/register",
+        // "http://localhost:3000/api/v1/user/register",
         user,
         {
           headers: { "Content-Type": "application/json" },

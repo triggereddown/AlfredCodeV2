@@ -81,7 +81,12 @@ function App() {
       }
     }
     if (authUser) {
-      const socket = io("http://localhost:3000", {
+      // const socket = io("http://localhost:3000", {
+      //   query: {
+      //     userId: authUser._id,
+      //   },
+      // });
+      const socket = io("https://chatappbackend-6btt.onrender.com", {
         query: {
           userId: authUser._id,
         },

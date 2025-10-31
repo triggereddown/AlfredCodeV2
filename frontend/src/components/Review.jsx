@@ -24,8 +24,8 @@ const Review = () => {
   async function reviewCode() {
     try {
       const response = await axios.post(
-        // "https://alfredchatv2backend.onrender.com/ai/get-review",
-        "http://localhost:3000/ai/get-review",
+        "https://chatappbackend-6btt.onrender.com/ai/get-review",
+        // "http://localhost:3000/ai/get-review",
         {
           code,
         }

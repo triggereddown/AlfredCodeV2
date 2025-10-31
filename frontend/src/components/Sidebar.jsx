@@ -19,8 +19,8 @@ const Sidebar = () => {
   const logoutHandler = async () => {
     try {
       const res = await axios.get(
-        // "https://alfredchatv2backend.onrender.com/api/v1/user/logout"
-        "http://localhost:3000/api/v1/user/logout"
+        "https://chatappbackend-6btt.onrender.com/api/v1/user/logout"
+        // "http://localhost:3000/api/v1/user/logout"
       );
       toast.success(res.data.message); // ✅ Uses global toaster
       navigate("/login");

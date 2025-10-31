@@ -14,8 +14,8 @@ const useGetMessages = () => {
         axios.defaults.withCredentials = true;
 
         const res = await axios.get(
-          `http://localhost:3000/api/v1/message/${selectedUser._id}`
-          // `https://alfredchatv2backend.onrender.com/api/v1/message/${selectedUser._id}`
+          // `http://localhost:3000/api/v1/message/${selectedUser._id}`
+          `https://chatappbackend-6btt.onrender.com/api/v1/message/${selectedUser._id}`
         );
 
         // Backend returns { success: true, messages: [...] }

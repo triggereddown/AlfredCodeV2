@@ -20,7 +20,8 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        "https://alfredchatv2backend.onrender.com/api/v1/user/login",
+        // "https://alfredchatv2backend.onrender.com/api/v1/user/login",
+        "http://localhost:3000/api/v1/user/login",
         user,
         {
           headers: { "Content-Type": "application/json" },

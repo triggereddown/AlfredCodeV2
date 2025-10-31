@@ -9,10 +9,10 @@ const useGetOtherUsers = () => {
     const fetchOtherUsers = async () => {
       try {
         axios.defaults.withCredentials = true;
-        // const res = await axios.get("http://localhost:3000/api/v1/user/chat");
-        const res = await axios.get(
-          "https://alfredchatv2backend.onrender.com/api/v1/user/chat"
-        );
+        const res = await axios.get("http://localhost:3000/api/v1/user/chat");
+        // const res = await axios.get(
+        //   "https://alfredchatv2backend.onrender.com/api/v1/user/chat"
+        // );
         console.log(res);
         dispatch(setOtherUsers(res.data));
       } catch (error) {

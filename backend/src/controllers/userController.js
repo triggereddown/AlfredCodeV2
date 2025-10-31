@@ -78,16 +78,30 @@ const login = async (req, res) => {
       expiresIn: "1d",
     });
 
+    // return res
+    //   .cookie("token", token, {
+    //     httpOnly: true,
+    //     sameSite: "strict",
+    //     maxAge: 24 * 60 * 60 * 1000,
+    //   })
+    //   .status(200)
+    //   .json({
+    //     success: true,
+    //     message: "Login Successful",
+    //     user: { username, fullName: user.fullName, _id: user._id },
+    //   });
     return res
       .cookie("token", token, {
         httpOnly: true,
-        sameSite: "strict",
+        sameSite: "none", // ✅ required for frontend hosted on a different domain
+        secure: true, // ✅ required for Render (HTTPS)
         maxAge: 24 * 60 * 60 * 1000,
       })
       .status(200)
       .json({
         success: true,
         message: "Login Successful",
+        token, // ✅ send token in response body too
         user: { username, fullName: user.fullName, _id: user._id },
       });
   } catch (err) {

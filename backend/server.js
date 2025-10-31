@@ -21,7 +21,7 @@ app.use(cookieParser());
 // CORS configuration
 const corsOptions = {
   //includend the frontend url
-  origin: ["http://localhost:5173"], // frontend URLs
+  origin: ["http://localhost:5173", "https://aichattrigger.onrender.com"], // frontend URLs
   credentials: true, // allow cookies
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],

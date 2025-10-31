@@ -34,48 +34,52 @@
 
 // module.exports = { server, io, app };
 const { Server } = require("socket.io");
-const http = require("http");
-const express = require("express");
 
-const app = express();
-const server = http.createServer(app);
+let io = null;
+const userSocketMap = {}; // userId -> socketId
 
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST"],
-  },
-});
+const initSocket = (httpServer) => {
+  if (io) return io; // already initialized
+
+  io = new Server(httpServer, {
+    cors: {
+      origin: "http://localhost:5173",
+      methods: ["GET", "POST"],
+    },
+  });
+
+  io.on("connection", (socket) => {
+    const userId = socket.handshake.query.userId;
+    console.log("✅ User connected:", socket.id, "for user:", userId);
+
+    if (userId) {
+      userSocketMap[userId] = socket.id;
+    }
+
+    io.emit("getOnlineUsers", Object.keys(userSocketMap));
+
+    socket.on("disconnect", (reason) => {
+      console.log("❌ User disconnected:", socket.id, "Reason:", reason);
+
+      // Find which user had this socket ID and remove it
+      for (const [id, sId] of Object.entries(userSocketMap)) {
+        if (sId === socket.id) {
+          delete userSocketMap[id];
+          break;
+        }
+      }
+
+      io.emit("getOnlineUsers", Object.keys(userSocketMap));
+    });
+  });
+
+  return io;
+};
 
 const getReceiverSocketId = (userId) => {
   return userSocketMap[userId];
 };
 
-const userSocketMap = {}; // userId -> socketId
+const getIo = () => io;
 
-io.on("connection", (socket) => {
-  const userId = socket.handshake.query.userId;
-  console.log("✅ User connected:", socket.id, "for user:", userId);
-
-  if (userId) {
-    userSocketMap[userId] = socket.id;
-  }
-
-  io.emit("getOnlineUsers", Object.keys(userSocketMap));
-
-  socket.on("disconnect", (reason) => {
-    console.log("❌ User disconnected:", socket.id, "Reason:", reason);
-
-    // Find which user had this socket ID
-    for (const [id, sId] of Object.entries(userSocketMap)) {
-      if (sId === socket.id) {
-        delete userSocketMap[id];
-        break;
-      }
-    }
-
-    io.emit("getOnlineUsers", Object.keys(userSocketMap));
-  });
-});
-
-module.exports = { server, io, app, getReceiverSocketId };
+module.exports = { initSocket, getReceiverSocketId, getIo };

@@ -41,7 +41,7 @@ import React, { useState, useEffect } from "react";
 
 import io from "socket.io-client";
 import { setSocket } from "./redux/socketSlice";
-import { setOnlineUsers } from "./redux/userSlice";
+import { setOnlineUsers, setAuthUser } from "./redux/userSlice";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +68,18 @@ function App() {
   const { socket } = useSelector((store) => store.socket);
   const dispatch = useDispatch();
   useEffect(() => {
+    // Rehydrate authUser from localStorage on load (keeps client logged in across refresh)
+    if (!authUser) {
+      try {
+        const raw = localStorage.getItem("authUser");
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          dispatch(setAuthUser(parsed));
+        }
+      } catch (e) {
+        console.warn("Failed to rehydrate authUser", e);
+      }
+    }
     if (authUser) {
       const socket = io("http://localhost:3000", {
         query: {

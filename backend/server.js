@@ -6,7 +6,9 @@ const connectdb = require("./src/config/database.js");
 const userRoute = require("./src/routes/userRoutes.js");
 const aiRoutes = require("./src/routes/ai.routes.js");
 const messageRoute = require("./src/routes/messageRoute.js");
-const app = express();
+//const app = express();
+// ⬇️ Import app & server from socket.js
+const { app, server } = require("../backend/src/socket/socket.js");
 const port = process.env.PORT || 3000;
 
 // Middleware
@@ -36,7 +38,7 @@ app.use("/ai", aiRoutes);
 app.get("/", (req, res) => res.send("Backend is running"));
 
 // Start server
-app.listen(port, () => {
+server.listen(port, () => {
   connectdb();
-  console.log(`Server running on port ${port}`);
+  console.log(`🚀 Server running with Socket.io on port ${port}`);
 });

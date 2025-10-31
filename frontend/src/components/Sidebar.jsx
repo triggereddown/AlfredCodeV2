@@ -6,7 +6,7 @@ import axios from "axios";
 import toast from "react-hot-toast"; // ✅ Global toaster
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setOtherUsers } from "../redux/userSlice";
+import { setOtherUsers, setAuthUser } from "../redux/userSlice";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -24,6 +24,7 @@ const Sidebar = () => {
       );
       toast.success(res.data.message); // ✅ Uses global toaster
       navigate("/login");
+      dispatch(setAuthUser(null));
     } catch (error) {
       toast.error(error.response?.data?.message || "Logout failed"); // ✅ Uses global toaster
     }

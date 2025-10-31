@@ -35,7 +35,7 @@ const Review = () => {
   const logoutHandler = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/user/logout"
+        "https://alfredchatv2backend.onrender.com/api/v1/user/logout"
       );
       if (response.data.success) {
         toast.success(response.data.message);

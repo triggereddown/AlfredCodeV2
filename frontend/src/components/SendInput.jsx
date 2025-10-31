@@ -14,7 +14,7 @@ const SendInput = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/v1/message/send/${selectedUser._id}`,
+        `https://alfredchatv2backend.onrender.com/api/v1/message/send/${selectedUser._id}`,
         { message },
         {
           headers: { "Content-Type": "application/json" },
@@ -24,7 +24,7 @@ const SendInput = () => {
       console.log("Send response:", res.data);
       // After sending, refetch messages for this conversation to keep UI in sync
       const fetchRes = await axios.get(
-        `http://localhost:3000/api/v1/message/${selectedUser._id}`,
+        `https://alfredchatv2backend.onrender.com/api/v1/message/${selectedUser._id}`,
         { withCredentials: true }
       );
       console.log("Refetched messages:", fetchRes.data.messages);

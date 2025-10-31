@@ -40,7 +40,7 @@ A **full-stack AI-powered chat application** that combines real-time messaging w
 
 ## ✨ Features  
 
-- 🌙 Light / Dark mode toggle  
+- 🌙 Dark mode toggle  
 - ⚡ Real-time messaging (Socket.io)  
 - 💾 Persistent chat storage with MongoDB  
 - 🧩 AI-assisted code reviews inside chat  
@@ -65,3 +65,4 @@ npm install
 ```bash
 npm run start
 ```
+

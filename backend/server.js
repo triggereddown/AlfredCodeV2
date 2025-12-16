@@ -35,6 +35,10 @@ app.use(cors(corsOptions));
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/message", messageRoute);
 app.use("/ai", aiRoutes);
+// Health check route
+app.get("/health", (req, res) => {
+  res.status(200).send("Chat App Backend is alive 🚀");
+});
 
 // Test root route
 app.get("/", (req, res) => res.send("Backend is running"));
